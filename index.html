@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
+</head>
+
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+    <div id="solarSystemContainer"></div>
+
+    <div class="container">
+
+        <h1></h1>
+
+        <button id="startButton">
+            click tại đây
+        </button>
+    </div>
+    <div id="clickHint">→</div>
+    <div id="welcomeScreen">
+
+        <div class="welcome-content">
+
+            <h1>
+                Chào mừng anh đến với trò chơi đố không vui nhưng không có thưởng
+            </h1>
+
+            <div class="welcome-buttons">
+
+                <button id="joinButton">
+                    Có tham gia
+                </button>
+
+                <button id="declineButton">
+                    Không tham gia
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div id="quizScreen">
+
+    <div class="quiz-content">
+
+        <div class="quiz-progress">
+            <span id="questionNumber">01 / 10</span>
+        </div>
+
+        <h2 id="questionText">
+            Nội dung câu hỏi sẽ xuất hiện ở đây
+        </h2>
+
+        <div id="answerContainer">
+
+            <!-- Các đáp án sẽ được JavaScript tạo ra -->
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Màn hình chiến thắng -->
+<div id="winScreen" class="result-screen">
+
+    <div class="result-content">
+
+        <h1>Chúc mừng anh đã thắng!</h1>
+
+        <p id="winScore"></p>
+
+    </div>
+
+</div>
+
+
+<!-- Màn hình thất bại -->
+<div id="loseScreen" class="result-screen">
+
+    <div class="result-content">
+
+        <h1>Rất tiếc, anh đã thua!</h1>
+
+        <p>Thử lại nào!</p>
+
+        <p id="loseScore"></p>
+
+    </div>
+
+</div>
+    <script src="js/script.js"></script>
+    <audio id="backgroundMusic" src="" loop></audio>
+    <script type="module" src="js/solarSystem.js"></script>
+</body>
+
+</html>

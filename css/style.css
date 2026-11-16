@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #020611;
+    font-family: Arial, sans-serif;
+}
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: 1;
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+}
+
+#startButton {
+    padding: 15px 35px;
+
+    border: 1px solid #8edcff;
+    border-radius: 30px;
+
+    background: rgba(40, 150, 255, 0.15);
+    color: #bceaff;
+
+    font-size: 18px;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 15px rgba(80, 190, 255, 0.4);
+
+    transition: 0.3s;
+}
+
+#startButton:hover {
+    background: rgba(40, 150, 255, 0.4);
+    box-shadow: 0 0 30px #54caff;
+    transform: scale(1.08);
+}
+
+#particleCanvas {
+    cursor: default;
+    touch-action: none;
+}
+
+#clickHint {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+
+    font-size: 55px;
+    color: #8bdcff;
+
+    text-shadow:
+        0 0 10px #5ac8ff,
+        0 0 25px #5ac8ff,
+        0 0 40px #5ac8ff;
+
+    opacity: 0;
+    pointer-events: auto;
+    cursor: pointer;
+    z-index: 10;
+
+    animation: hintFloat 1.2s ease-in-out infinite;
+    transition: opacity 0.5s ease;
+}
+
+#clickHint.show {
+    opacity: 1;
+}
+
+@keyframes hintFloat {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+}
+/* Hệ mặt trời */
+#solarSystemContainer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #02030a;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 5;
+    transition: opacity 2s ease;
+}
+
+#solarSystemContainer.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#solarSystemContainer canvas {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#particleCanvas,
+.container {
+    transition: opacity 1.5s ease;
+}
+
+body.solar-mode #particleCanvas,
+body.solar-mode .container {
+    opacity: 0;
+    pointer-events: none;
+}
+/* Màn hình chào mừng */
+
+#welcomeScreen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 20;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity 1.5s ease;
+}
+
+#welcomeScreen.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.welcome-content {
+    width: 85%;
+    max-width: 900px;
+
+    text-align: center;
+
+    transform: translateY(20px);
+    transition: transform 1.5s ease;
+}
+
+#welcomeScreen.show .welcome-content {
+    transform: translateY(0);
+}
+
+.welcome-content h1 {
+    color: #ffffff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+
+    text-shadow:
+        0 0 10px #8bdcff,
+        0 0 25px #5ac8ff;
+}
+
+.welcome-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    margin-top: 40px;
+}
+
+.welcome-buttons button {
+    padding: 14px 30px;
+
+    font-size: 18px;
+    color: white;
+
+    background: rgba(50, 100, 150, 0.25);
+    border: 1px solid #8bdcff;
+    border-radius: 12px;
+
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.welcome-buttons button:hover {
+    background: rgba(80, 160, 220, 0.4);
+    box-shadow: 0 0 20px #5ac8ff;
+    transform: translateY(-4px);
+}
+
+/* Hiệu ứng ẩn hệ mặt trời */
+
+#solarSystemContainer {
+    transition: opacity 1.2s ease;
+}
+
+#solarSystemContainer.solar-exit {
+    opacity: 0;
+    pointer-events: none;
+}
+#declineButton {
+    transition:
+        left 0.35s ease,
+        top 0.35s ease,
+        transform 0.35s ease;
+
+    transform-origin: top left;
+}
+/* Màn hình trắc nghiệm */
+#quizScreen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 30;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 1s ease;
+}
+
+#quizScreen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.quiz-content {
+    width: 85%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.quiz-progress {
+    color: #8bdcff;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#questionText {
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 4vw, 42px);
+
+    text-shadow: 0 0 15px #5ac8ff;
+
+    margin-bottom: 40px;
+}
+
+#answerContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+/* Các nút đáp án */
+.answer-button {
+    position: relative;
+
+    padding: 20px 25px;
+
+    color: #ffffff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+
+    background: rgba(30, 55, 90, 0.35);
+
+    border: 1px solid rgba(139, 220, 255, 0.5);
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    backdrop-filter: blur(8px);
+
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng khi di chuột */
+.answer-button:hover {
+    background: rgba(70, 130, 190, 0.35);
+
+    border-color: #8bdcff;
+
+    box-shadow:
+        0 0 10px #5ac8ff,
+        0 0 25px rgba(90, 200, 255, 0.4);
+
+    transform: translateY(-4px);
+}
+
+/* Hiệu ứng khi chọn */
+.answer-button.selected {
+    background: rgba(80, 160, 220, 0.4);
+
+    border-color: #ffffff;
+
+    box-shadow: 0 0 20px #5ac8ff;
+}
+@media (max-width: 600px) {
+
+    #answerContainer {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .answer-button {
+        padding: 15px 20px;
+        font-size: 18px;
+    }
+
+    .quiz-content {
+        width: 90%;
+    }
+
+}
+/* Đáp án đúng */
+.answer-button.correct {
+    background: rgba(40, 180, 100, 0.3);
+    border-color: #65ffad;
+    box-shadow: 0 0 20px rgba(101, 255, 173, 0.5);
+}
+
+/* Đáp án sai */
+.answer-button.wrong {
+    background: rgba(220, 60, 70, 0.3);
+    border-color: #ff6875;
+    box-shadow: 0 0 20px rgba(255, 104, 117, 0.5);
+}
+
+/* Không cho tương tác sau khi chọn */
+.answer-button:disabled {
+    cursor: default;
+    opacity: 0.85;
+}
+
+/* Màn hình kết quả */
+.result-screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 40;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 1s ease;
+
+    text-align: center;
+}
+
+.result-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.result-content {
+    width: 85%;
+    max-width: 800px;
+}
+
+.result-content h1 {
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 55px);
+
+    text-shadow:
+        0 0 10px #8bdcff,
+        0 0 25px #5ac8ff;
+}
+
+.result-content p {
+    color: #d9efff;
+    font-size: 22px;
+}
+/* Màn hình kết quả */
+.result-screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 40;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 1s ease;
+
+    text-align: center;
+}
+
+.result-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.result-content {
+    width: 85%;
+    max-width: 800px;
+}
+
+.result-content h1 {
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 55px);
+
+    text-shadow:
+        0 0 10px #8bdcff,
+        0 0 25px #5ac8ff;
+}
+
+.result-content p {
+    color: #d9efff;
+    font-size: 22px;
+}
