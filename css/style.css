@@ -108,6 +108,7 @@ body {
         transform: translateX(8px);
     }
 }
+
 /* Hệ mặt trời */
 #solarSystemContainer {
     position: fixed;
@@ -145,6 +146,7 @@ body.solar-mode .container {
     opacity: 0;
     pointer-events: none;
 }
+
 /* Màn hình chào mừng */
 
 #welcomeScreen {
@@ -232,6 +234,7 @@ body.solar-mode .container {
     opacity: 0;
     pointer-events: none;
 }
+
 #declineButton {
     transition:
         left 0.35s ease,
@@ -240,6 +243,7 @@ body.solar-mode .container {
 
     transform-origin: top left;
 }
+
 /* Màn hình trắc nghiệm */
 #quizScreen {
     position: fixed;
@@ -289,6 +293,7 @@ body.solar-mode .container {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
 /* Các nút đáp án */
 .answer-button {
     position: relative;
@@ -334,6 +339,7 @@ body.solar-mode .container {
 
     box-shadow: 0 0 20px #5ac8ff;
 }
+
 @media (max-width: 600px) {
 
     #answerContainer {
@@ -351,6 +357,7 @@ body.solar-mode .container {
     }
 
 }
+
 /* Đáp án đúng */
 .answer-button.correct {
     background: rgba(40, 180, 100, 0.3);
@@ -414,6 +421,7 @@ body.solar-mode .container {
     color: #d9efff;
     font-size: 22px;
 }
+
 /* Màn hình kết quả */
 .result-screen {
     position: fixed;
@@ -456,4 +464,256 @@ body.solar-mode .container {
 .result-content p {
     color: #d9efff;
     font-size: 22px;
+}
+
+#retryButton {
+    margin-top: 25px;
+    padding: 14px 35px;
+
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+
+    background: rgba(50, 100, 150, 0.3);
+
+    border: 1px solid #8bdcff;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+#retryButton:hover {
+    background: rgba(80, 160, 220, 0.4);
+
+    box-shadow: 0 0 20px #5ac8ff;
+
+    transform: translateY(-4px);
+}
+
+/* Khu vực phong thư */
+.letter-container {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    min-height: 400px;
+}
+
+/* Nút phong thư */
+.envelope {
+    position: relative;
+
+    width: 280px;
+    height: 190px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    perspective: 1000px;
+
+    filter: drop-shadow(0 0 15px rgba(100, 200, 255, 0.4));
+
+    transition: transform 0.4s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-8px) scale(1.04);
+}
+
+/* Mặt sau phong thư */
+.envelope-back {
+    position: absolute;
+    inset: 0;
+
+    background: #244b70;
+
+    border-radius: 8px;
+}
+
+/* Giấy bên trong */
+.envelope-paper {
+    position: absolute;
+
+    width: 85%;
+    height: 85%;
+
+    left: 7.5%;
+    bottom: 5%;
+
+    background: #f4e9d5;
+
+    border-radius: 5px;
+}
+
+/* Mặt trước phong thư */
+.envelope-front {
+    position: absolute;
+    inset: 0;
+
+    background: #356b96;
+
+    clip-path: polygon(0 0,
+            50% 60%,
+            100% 0,
+            100% 100%,
+            0 100%);
+
+    border-radius: 8px;
+}
+
+/* Nắp phong thư */
+.envelope-flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 60%;
+
+    background: #75bce7;
+
+    clip-path: polygon(0 0,
+            100% 0,
+            50% 100%);
+
+    transform-origin: top center;
+
+    transition: transform 0.8s ease;
+
+    z-index: 3;
+}
+
+/* Con dấu trái tim */
+.envelope-seal {
+    position: absolute;
+
+    top: 48%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 22px;
+
+    background: #d77d9d;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 15px #ff9fca;
+
+    z-index: 4;
+}
+
+/* Hiệu ứng mở nắp thư */
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* Ẩn con dấu khi mở */
+.envelope.open .envelope-seal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Tờ giấy bên trong */
+.letter-paper {
+    position: absolute;
+
+    width: 260px;
+    min-height: 320px;
+
+    padding: 30px 25px;
+    box-sizing: border-box;
+
+    background: #f4e9d5;
+    color: #493b31;
+
+    border-radius: 5px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(50px) scale(0.8);
+
+    box-shadow: 0 0 25px rgba(100, 200, 255, 0.3);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        visibility 0.8s ease;
+
+    z-index: 5;
+}
+
+/* Khi thư được mở */
+.letter-container.open .letter-paper {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(-20px) scale(1);
+}
+
+/* Nội dung thư */
+.letter-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    line-height: 1.7;
+
+    white-space: pre-line;
+}
+
+/* Chữ ký */
+.letter-signature {
+    margin-top: 35px;
+
+    font-family: 'Dancing Script', cursive;
+    font-size: 25px;
+
+    text-align: right;
+    color: #8d5368;
+}
+
+/* Ẩn phong thư sau khi mở */
+.letter-container.open .envelope {
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.5s ease;
+}
+
+#secretScreen h1 {
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px #d8a7ff,
+        0 0 25px #a66bff,
+        0 0 45px #7540ff;
+}
+
+/* Mặc định ẩn cả hai nội dung */
+#normalLetterContent,
+#secretLetterContent {
+    display: none;
+}
+
+/* Chỉ hiện nội dung được lựa chọn */
+#normalLetterContent.active,
+#secretLetterContent.active {
+    display: block;
 }

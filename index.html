@@ -62,53 +62,114 @@
     </div>
     <div id="quizScreen">
 
-    <div class="quiz-content">
+        <div class="quiz-content">
 
-        <div class="quiz-progress">
-            <span id="questionNumber">01 / 10</span>
+            <div class="quiz-progress">
+                <span id="questionNumber">01 / 10</span>
+            </div>
+
+            <h2 id="questionText">
+                Nội dung câu hỏi sẽ xuất hiện ở đây
+            </h2>
+
+            <div id="answerContainer">
+
+                <!-- Các đáp án sẽ được JavaScript tạo ra -->
+
+            </div>
+
         </div>
 
-        <h2 id="questionText">
-            Nội dung câu hỏi sẽ xuất hiện ở đây
-        </h2>
+    </div>
+    <!-- Màn hình chiến thắng -->
+    <div id="winScreen" class="result-screen">
 
-        <div id="answerContainer">
+        <div class="result-content">
 
-            <!-- Các đáp án sẽ được JavaScript tạo ra -->
+            <h1>Chúc mừng anh đã thắng!</h1>
+
+            <p id="winScore"></p>
+
+        </div>
+
+    </div>
+    <div id="secretScreen" class="result-screen">
+
+        <div class="result-content">
+
+            <h1>
+                Chúc mừng anh khám phá ra bí mật của trò chơi
+            </h1>
+
+        </div>
+
+    </div>
+    <!-- Màn hình bức thư -->
+    <div id="letterScreen" class="result-screen">
+
+        <div class="letter-container">
+
+            <!-- Phong thư đang đóng -->
+            <button id="openLetterButton" class="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="envelope-paper"></div>
+
+                <div class="envelope-front"></div>
+
+                <div class="envelope-flap"></div>
+
+                <div class="envelope-seal">♥</div>
+
+            </button>
+
+            <!-- Nội dung thư -->
+            <div id="letterPaper" class="letter-paper">
+
+                <!-- Nội dung thư thông thường -->
+                <div id="normalLetterContent" class="letter-text">
+
+                    Nội dung thư dành cho người chiến thắng.
+
+                </div>
+
+
+                <!-- Nội dung thư bí mật -->
+                <div id="secretLetterContent" class="letter-text">
+
+                    Nội dung thư bí mật dành cho người khám phá Easter Egg.
+
+                </div>
+
+                <div class="letter-signature">
+                    Người yêu của anh
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-<!-- Màn hình chiến thắng -->
-<div id="winScreen" class="result-screen">
+    <!-- Màn hình thất bại -->
+    <div id="loseScreen" class="result-screen">
 
-    <div class="result-content">
+        <div class="result-content">
 
-        <h1>Chúc mừng anh đã thắng!</h1>
+            <h1>Rất tiếc, anh đã thua!</h1>
 
-        <p id="winScore"></p>
+            <p>Thử lại nào!</p>
 
-    </div>
+            <p id="loseScore"></p>
+            <button id="retryButton">
+                Chơi lại
+            </button>
 
-</div>
+        </div>
 
-
-<!-- Màn hình thất bại -->
-<div id="loseScreen" class="result-screen">
-
-    <div class="result-content">
-
-        <h1>Rất tiếc, anh đã thua!</h1>
-
-        <p>Thử lại nào!</p>
-
-        <p id="loseScore"></p>
 
     </div>
-
-</div>
     <script src="js/script.js"></script>
     <audio id="backgroundMusic" src="" loop></audio>
     <script type="module" src="js/solarSystem.js"></script>

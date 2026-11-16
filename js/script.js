@@ -739,6 +739,16 @@ const questions = [
         ],
         correctAnswer: 0
     },
+    {
+        question: "Em thích đi đâu:",
+        answers: [
+            "Đi ăn",
+            "Đi du lịch",
+            "Đi dạo",
+            "Đi uống nước"
+        ],
+        correctAnswer: 1
+    },
 
     {
         question: "em thích loại son nào nhất?",
@@ -784,15 +794,28 @@ const questions = [
         correctAnswer: 3
     }
 ];
+
 // Trạng thái của trò chơi
 let currentQuestionIndex = 0;
 let correctAnswers = 0;
-
+// Trạng thái chế độ bí mật
+let isSecretMode = false;
+// Lưu đáp án người chơi đã chọn ở từng câu
+let selectedAnswers = Array(10).fill(null);
 // Lấy các phần tử HTML
 const quizScreen = document.getElementById("quizScreen");
 const questionNumber = document.getElementById("questionNumber");
 const questionText = document.getElementById("questionText");
 const answerContainer = document.getElementById("answerContainer");
+// Các màn hình kết quả
+const winScreen = document.getElementById("winScreen");
+const loseScreen = document.getElementById("loseScreen");
+// Màn hình bí mật
+const secretScreen = document.getElementById("secretScreen");
+
+// Hiển thị điểm số
+const winScore = document.getElementById("winScore");
+const loseScore = document.getElementById("loseScore");
 function showQuestion() {
 
     // Lấy câu hỏi hiện tại
@@ -820,7 +843,8 @@ function showQuestion() {
 
 
         button.addEventListener("click", function () {
-
+            // Lưu đáp án người chơi đã chọn
+            selectedAnswers[currentQuestionIndex] = index;
             // Ngăn chọn nhiều đáp án
             const allButtons = answerContainer.querySelectorAll("button");
 
@@ -859,11 +883,7 @@ function showQuestion() {
 
                 } else {
 
-                    questionText.textContent = "Anh đã hoàn thành 10 câu hỏi!";
-
-                    questionNumber.textContent = "10 / 10";
-
-                    answerContainer.innerHTML = "";
+                    showResult();
 
                 }
 
@@ -874,6 +894,76 @@ function showQuestion() {
         answerContainer.appendChild(button);
 
     });
+
+}
+function checkSecretMode() {
+
+    return (
+        selectedAnswers[2] === 1 &&
+        selectedAnswers[7] === 0 &&
+        selectedAnswers[8] === 1
+    );
+
+}
+function showResult() {
+
+    // Ẩn màn hình câu hỏi
+    quizScreen.classList.remove("show");
+console.log("Các đáp án đã chọn:", selectedAnswers);
+console.log("Có kích hoạt bí mật:", checkSecretMode());
+    // Kiểm tra chế độ bí mật trước tiên
+    if (checkSecretMode()) {
+
+        isSecretMode = true;
+
+        secretScreen.classList.add("show");
+
+        // Sau 3 giây chuyển sang phong thư
+        setTimeout(() => {
+
+            secretScreen.classList.remove("show");
+
+            setTimeout(() => {
+
+                letterScreen.classList.add("show");
+
+            }, 1000);
+
+        }, 3000);
+
+        return;
+    }
+
+    // Nếu không có chế độ bí mật, xét điểm thông thường
+    if (correctAnswers >= 5) {
+
+        isSecretMode = false;
+
+        winScore.textContent =
+            `Anh trả lời đúng ${correctAnswers}/10 câu!`;
+
+        winScreen.classList.add("show");
+
+        setTimeout(() => {
+
+            winScreen.classList.remove("show");
+
+            setTimeout(() => {
+
+                letterScreen.classList.add("show");
+
+            }, 1000);
+
+        }, 3000);
+
+    } else {
+
+        loseScore.textContent =
+            `Anh chỉ trả lời đúng ${correctAnswers}/10 câu!`;
+
+        loseScreen.classList.add("show");
+
+    }
 
 }
 const joinButton = document.getElementById("joinButton");
@@ -890,9 +980,67 @@ joinButton.addEventListener("click", function () {
 
     // Đưa về câu hỏi đầu tiên
     currentQuestionIndex = 0;
-    correctAnswers = 0;
+correctAnswers = 0;
+selectedAnswers = Array(10).fill(null);
+isSecretMode = false;
 
     // Hiển thị câu hỏi
     showQuestion();
+
+});
+const retryButton = document.getElementById("retryButton");
+
+retryButton.addEventListener("click", function () {
+
+    // Ẩn màn hình thua
+    loseScreen.classList.remove("show");
+
+    // Đặt lại điểm số
+    correctAnswers = 0;
+    selectedAnswers = Array(10).fill(null);
+    isSecretMode = false;
+
+    // Quay về câu hỏi đầu tiên
+    currentQuestionIndex = 0;
+
+    // Hiển thị màn hình Quiz
+    quizScreen.classList.add("show");
+
+    // Hiển thị câu hỏi số 1
+    showQuestion();
+
+});
+const letterScreen = document.getElementById("letterScreen");
+
+const openLetterButton = document.getElementById("openLetterButton");
+
+openLetterButton.addEventListener("click", function () {
+
+    const letterContainer = document.querySelector(".letter-container");
+    // Lựa chọn nội dung thư theo kết quả trò chơi
+    const normalContent = document.getElementById("normalLetterContent");
+    const secretContent = document.getElementById("secretLetterContent");
+
+    if (isSecretMode) {
+
+        secretContent.classList.add("active");
+        normalContent.classList.remove("active");
+
+    } else {
+
+        normalContent.classList.add("active");
+        secretContent.classList.remove("active");
+
+    }
+
+    // Lật nắp thư
+    openLetterButton.classList.add("open");
+
+    // Đợi nắp thư mở rồi đưa giấy ra
+    setTimeout(() => {
+
+        letterContainer.classList.add("open");
+
+    }, 800);
 
 });
